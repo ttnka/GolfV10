@@ -1,0 +1,34 @@
+﻿@page "/jugadores"
+
+@using GolfV10.Client.Servicios.IFaceServ;
+@using GolfV10.Shared;
+
+<h3>Listado de Jugadores</h3>
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" PageSize="35"
+                AllowPaging="true" AllowSorting="true"
+                Data="LosPlayers" TItem="G120Player" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
+    <Columns>
+        <RadzenDataGridColumn TItem="G120Player" Property="Id" Filterable="false" Title="Id"
+                              Frozen="true" Width="70px" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn TItem="G120Player" Property="Ghin" Title="Ghin" Frozen="true" Width="100px" />
+        <RadzenDataGridColumn TItem="G120Player" Property="Apodo" Title="Apodo" Width="100px" />
+        <RadzenDataGridColumn TItem="G120Player" Property="Nombre" Title="Nombre" Width="150px" />
+        <RadzenDataGridColumn TItem="G120Player" Property="Nombre" Title="Paterno" Width="150px" />
+        <RadzenDataGridColumn TItem="G120Player" Property="Estado" Title="Estado" Width="50px" />
+        <RadzenDataGridColumn TItem="G120Player" Property="Status" Title="Status" Width="50px" />
+
+    </Columns>
+</RadzenDataGrid>
+
+
+@code {
+    [Inject]
+    protected IG120PlayerServ playerIFace { get; set; }
+    protected IEnumerable<G120Player> LosPlayers { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        LosPlayers = (await playerIFace.GetPlayers()).ToList(); 
+    }
+}

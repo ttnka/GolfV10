@@ -72,7 +72,7 @@ namespace GolfV10.Server.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error al intentar crear un nuevo campo en la base de datos.");
             }
         }
-        [HttpPatch]
+        [HttpPut]
         public async Task<ActionResult<G170Campo>> UpdatePlayer(G170Campo campo)
         {
             try

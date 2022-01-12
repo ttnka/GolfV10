@@ -73,7 +73,7 @@ namespace GolfV10.Server.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error al intentar agregar una fotografia a la base de datos.");
             }
         }
-        [HttpPatch]
+        [HttpPut]
         public async Task<ActionResult<G136Foto>> UpdatePlayer(G136Foto foto)
         {
             try

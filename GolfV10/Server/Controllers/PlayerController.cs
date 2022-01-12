@@ -30,7 +30,6 @@ namespace GolfV10.Server.Controllers
             }
             catch (Exception)
             {
-
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error al leer la base de datos, buscando jugadores");
             }
         }        
@@ -44,7 +43,6 @@ namespace GolfV10.Server.Controllers
             }
             catch (Exception)
             {
-
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error al leer la base de datos, buscando jugadores");
             }
         }
@@ -54,7 +52,6 @@ namespace GolfV10.Server.Controllers
         {
             try
             {
-
                 var resultado = await playerIFace.GetPlayer(playerId);
                 return resultado != null ? resultado : NotFound();
             }
@@ -75,11 +72,10 @@ namespace GolfV10.Server.Controllers
             }
             catch (Exception)
             {
-
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error al intentar crear un nuevo jugador en la base de datos.");
             }
         }
-        [HttpPatch]
+        [HttpPut]
         public async Task<ActionResult<G120Player>> UpdatePlayer(G120Player player)
         {
             try
@@ -88,7 +84,6 @@ namespace GolfV10.Server.Controllers
             }
             catch (Exception)
             {
-
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error al intentar actualizar la base de datos, del jugador");
             }
         }

@@ -1,0 +1,58 @@
+﻿@page "/jugadoresEdit/{id}"
+
+@using GolfV10.Client.Servicios.IFaceServ;
+@using GolfV10.Shared;
+
+
+<h3>JugadoresEdit</h3>
+
+<RadzenTemplateForm TItem="G120Player" Data="ElPlayer" Submit="@OnSubmit">
+    <p>
+        <RadzenLabel Component="Apodo" Text="Apodo del Jugador" />
+        <RadzenTextBox Name="Apodo" @bind-Value="@ElPlayer.Apodo" />
+
+    </p>
+    <p>
+        <RadzenLabel Component="Nombre" Text="Nombre del Jugador" />
+        <RadzenTextBox Name="Nombre" @bind-Value="@ElPlayer.Nombre" />
+        <RadzenRequiredValidator Component="Nombre" Text="El Nombre del jugadore es requerido." />
+    </p>
+    <p>
+        <RadzenLabel Component="Paterno" Text="Apellido paterno del Jugador" />
+        <RadzenTextBox Name="Paterno" @bind-Value="@ElPlayer.Paterno" />
+        <RadzenRequiredValidator Component="Paterno" Text="El Apellido paterno del jugadore es requerido." />
+    </p>
+    <p>
+        <RadzenLabel Component="Materno" Text="Apellido materno del Jugador" />
+        <RadzenTextBox Name="Materno" @bind-Value="@ElPlayer.Materno" />
+        
+    </p>
+        <RadzenLink Icon="cancel" Path="/jugadores" Text="Cancelar" />
+        <RadzenButton ButtonType="ButtonType.Submit" Text="Actualizar" />
+</RadzenTemplateForm>
+
+@code {
+
+    [Inject]
+    protected IG120PlayerServ playerIFace { get; set; }
+    public G120Player ElPlayer { get; set; } = new G120Player();
+
+    [Parameter]
+    public string Id { get; set; }
+
+    public NavigationManager NM { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ElPlayer = await playerIFace.GetPlayer(int.Parse(Id));
+    }
+
+    protected async Task OnSubmit(G120Player ElPlayer)
+    {
+        var resultado = await playerIFace.UpdatePlayer(ElPlayer);
+        if (resultado != null) 
+        {
+            NM.NavigateTo("/jugadores");
+        }
+    }
+}

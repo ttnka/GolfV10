@@ -63,7 +63,7 @@ namespace GolfV10.Server.Controllers
             }
         }
 
-        [HttpPatch]
+        [HttpPut]
         public async Task<ActionResult<G128Hcp>> UpdateHcp(G128Hcp hcp)
         {
             try

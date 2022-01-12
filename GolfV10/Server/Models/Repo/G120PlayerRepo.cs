@@ -34,7 +34,7 @@ namespace GolfV10.Server.Models.Repo
         }
         public async Task<G120Player> GetPlayer(int playerId)
         {
-            return await appDbContext.Players.FirstOrDefaultAsync(e => e.User == playerId);
+            return await appDbContext.Players.FirstOrDefaultAsync(e => e.Id == playerId);
         }
         public async Task<IEnumerable<G120Player>> GetPlayers()
         {
@@ -42,7 +42,7 @@ namespace GolfV10.Server.Models.Repo
         }
         public async Task<G120Player> UpdatePlayer(G120Player player)
         {
-            var playerUpdate = await appDbContext.Players.FirstOrDefaultAsync(e => e.User == player.User);
+            var playerUpdate = await appDbContext.Players.FirstOrDefaultAsync(e => e.Id == player.Id);
             if (player.Status == false)
             {
                 playerUpdate.Status = false;

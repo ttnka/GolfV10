@@ -10,14 +10,31 @@
                 Data="LosPlayers" TItem="G120Player" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
     <Columns>
         <RadzenDataGridColumn TItem="G120Player" Property="Id" Filterable="false" Title="Id"
-                              Frozen="true" Width="70px" TextAlign="TextAlign.Center" />
-        <RadzenDataGridColumn TItem="G120Player" Property="Ghin" Title="Ghin" Frozen="true" Width="100px" />
-        <RadzenDataGridColumn TItem="G120Player" Property="Apodo" Title="Apodo" Width="100px" />
-        <RadzenDataGridColumn TItem="G120Player" Property="Nombre" Title="Nombre" Width="150px" />
-        <RadzenDataGridColumn TItem="G120Player" Property="Nombre" Title="Paterno" Width="150px" />
-        <RadzenDataGridColumn TItem="G120Player" Property="Estado" Title="Estado" Width="50px" />
-        <RadzenDataGridColumn TItem="G120Player" Property="Status" Title="Status" Width="50px" />
+                              Frozen="true" Width="40px" TextAlign="TextAlign.Center" />
+        
+        <RadzenDataGridColumn TItem="G120Player" Property="Apodo" Title="Nombre" Width="250px">
+            <Template Context="data">
+                @data.Nombre @data.Paterno @data.Materno
+                @if (!string.IsNullOrEmpty(data.Apodo)) {<label> &nbsp; "@data.Apodo"</label>}
+            </Template>
+        </RadzenDataGridColumn>
 
+        <RadzenDataGridColumn TItem="G120Player" Property="Ghin" Title="Ghin" Width="80px" />
+        
+        <RadzenDataGridColumn TItem="G120Player" Title="Estado" Width="50px" Sortable="false" Filterable="false">
+            <Template Context="data">
+                @if(data.Estado == 1) {<label>Confirmado</label>} 
+                else { <label>Sin Confirmar</label>}
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="G120Player" Title="Herramienta" Width="50px" Filterable="false">
+            <Template Context="dato">
+                @if (dato.Id > 4)
+                {
+                    <RadzenLink Icon="edit" Path=@($"/jugadoresedit/{dato.Id}") /> 
+                }
+            </Template>
+        </RadzenDataGridColumn>
     </Columns>
 </RadzenDataGrid>
 
